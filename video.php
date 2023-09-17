@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @var VideoData $video
  * @var $pageH1 string
@@ -11,6 +12,8 @@
  * @var VideoCategory[] $categories
  * @var $isVideoPage boolean
  * @var $isEmbedPage boolean
+ * @var $showVideoDescription
+ * @var $showVideoSeoText
  */
 
 $thumbRelay = thumbRelay();
@@ -42,7 +45,7 @@ if ($embedRelay && strlen($relayDomain)) {
                     </div>
                     <h1 class="full-video_title"><?= $pageH1 ?></h1>
                     <div class="row align-items-center justify-content-end">
-                        <div class="col-6">
+                        <div class="col-12 col-xl-6">
                             <div class="full-video_meta d-flex flex-row">
                                 <span class="me-3"><?= $video->video->viewsStr ?> просмотров</span>
                                 <span><?= $video->video->timeAgo ?></span>
@@ -53,33 +56,45 @@ if ($embedRelay && strlen($relayDomain)) {
                                 </a>
                             </div>
                         </div>
-                        <div class="col-6">
+                        <div class="col-12 col-xl-6 mb-3 mb-xl-0 mt-3 mt-xl-0 d-flex justify-content-center justify-content-xl-end">
                             <script src="https://yastatic.net/share2/share.js"></script>
                             <div class="ya-share2" data-curtain data-size="l" data-shape="round" data-limit="7" data-services="vkontakte,whatsapp,odnoklassniki,telegram,twitter,viber,moimir,skype,messenger"></div>
                         </div>
                     </div>
-                    <div class="full-video_description">
-                        <p><?= $video->video->description ?></p>
-                        <p><?= $pageSeoText ?></p>
-                    </div>
+                    <?php if ($showVideoDescription || $showVideoSeoText) : ?>
+                        <div class="full-video_description">
+                            <?php if ($showVideoDescription) : ?>
+                                <p><?= $video->video->description ?></p>
+                            <?php endif; ?>
+                            <?php if ($showVideoSeoText) : ?>
+                                <p><?= $pageSeoText ?></p>
+                            <?php endif; ?>
+                        </div>
+                    <?php endif; ?>
                     <?php get_template_part('template-parts/comments', null, ['comments' => $video->comments]); ?>
                 </div>
             </div>
 
             <div class="col full-video_right">
-                <?php if (count($video->related) > 0): ?>
+                <?php if (count($video->related) > 0) : ?>
                     <div class="video-widget mb-5">
-                        <h5 class="video-widget_title">Смотрите далее</h5>
-                        <?php foreach ($video->related as $video): ?>
+                        <h5 class="video-widget_title">
+                            <i class="fas fa-forward"></i>
+                            Смотрите далее
+                        </h5>
+                        <?php foreach ($video->related as $video) : ?>
                             <?php get_template_part('template-parts/video', 'card-sm', ['video' => $video, 'thumb_relay' => $thumbRelay, 'relay_domain' => $relayDomain]); ?>
                         <?php endforeach; ?>
                     </div>
                 <?php endif; ?>
 
-                <?php if (count($popular) > 0): ?>
+                <?php if (count($popular) > 0) : ?>
                     <div class="video-widget mb-5">
-                        <h5 class="video-widget_title">Популярные</h5>
-                        <?php foreach ($popular as $video): ?>
+                        <h5 class="video-widget_title">
+                            <i class="fa fa-fire fa-lg"></i>
+                            Популярные
+                        </h5>
+                        <?php foreach ($popular as $video) : ?>
                             <?php get_template_part('template-parts/video', 'card-sm', ['video' => $video, 'thumb_relay' => $thumbRelay, 'relay_domain' => $relayDomain]); ?>
                         <?php endforeach; ?>
                     </div>
@@ -90,3 +105,4 @@ if ($embedRelay && strlen($relayDomain)) {
     </div>
 </div>
 
+<?php get_template_part('template-parts/drawer', null, ['categories' => $categories]) ?>

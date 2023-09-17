@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @var VideoModel[] $videos
  * @var $pageH1 string
@@ -6,6 +7,8 @@
  * @var $pageTitle string
  * @var $pageSeoText string
  * @var VideoCategory[] $categories
+ * @var VideoCategory $category
+ * @var $isCategoryPage boolean
  */
 
 $thumbRelay = thumbRelay();
@@ -18,24 +21,33 @@ $relayDomain = getRelayDomain();
     'metaDescription' => $metaDescription,
 ]) ?>
 
-
 <div class="layout">
     <?php get_template_part('template-parts/categories', null, ['categories' => $categories]) ?>
 
     <div class="container-fluid">
-        <?php if (strlen($pageH1) > 0): ?>
-            <h1 class="page-header"><?= $pageH1 ?></h1>
+        <?php if (strlen($pageH1) > 0) : ?>
+            <h1 class="page-header">
+                <?php if ($isCategoryPage) : ?>
+                    <i class="<?= getCategoryIcon($category->youtube_id) ?>"></i>
+                <?php endif; ?>
+                <?php if ($isChannelPage) : ?>
+                    <i class="fas fa-user"></i>
+                <?php endif; ?>
+                <?= $pageH1 ?>
+            </h1>
         <?php endif; ?>
 
-        <?php if (count($videos) > 0): ?>
-            <div class="row">
-                <?php foreach ($videos as $video): ?>
-                    <div class="col-lg-2">
-                        <?php get_template_part('template-parts/video', 'card', ['video' => $video, 'thumb_relay' => $thumbRelay, 'relay_domain' => $relayDomain]); ?>
-                    </div>
-                <?php endforeach; ?>
+        <?php if (count($videos) > 0) : ?>
+            <div class="video-block">
+                <div class="video-items">
+                    <?php foreach ($videos as $video) : ?>
+                        <div class="video-items_item">
+                            <?php get_template_part('template-parts/video', 'card', ['video' => $video, 'thumb_relay' => $thumbRelay, 'relay_domain' => $relayDomain]); ?>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
             </div>
-        <?php else: ?>
+        <?php else : ?>
             <p>Видео нет</p>
         <?php endif; ?>
 
@@ -44,3 +56,5 @@ $relayDomain = getRelayDomain();
         <?php get_footer(); ?>
     </div>
 </div>
+
+<?php get_template_part('template-parts/drawer', null, ['categories' => $categories]) ?>

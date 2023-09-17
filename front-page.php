@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @var VideoModel[] $videos
  * @var $pageH1 string
@@ -23,30 +24,28 @@ $relayDomain = getRelayDomain();
 <div class="layout">
     <?php get_template_part('template-parts/categories', null, ['categories' => $categories]) ?>
     <div class="container-fluid content">
-        <?php if (strlen($pageH1) > 0): ?>
-            <div class="items-header fx-row fx-middle">
-                <h1 class="items-title fw700"><?= $pageH1 ?></h1>
-            </div>
+        <?php if (strlen($pageH1) > 0) : ?>
+            <h1 class="page-header"><?= $pageH1 ?></h1>
         <?php endif; ?>
 
-        <?php if (!is_array($categoriesWithVideos)): ?>
+        <?php if (!is_array($categoriesWithVideos)) : ?>
             <p>Нет видео</p>
-        <?php else: ?>
-            <?php foreach ($categoriesWithVideos as $categoriesWithVideo): ?>
-            <div class="video-block">
-                <div class="video-block_head">
-                    <h3 class="video-block_title">
-                        <i class="<?= getCategoryIcon($categoriesWithVideo->category->id) ?>"></i><?= $categoriesWithVideo->category->title ?>
-                    </h3>
+        <?php else : ?>
+            <?php foreach ($categoriesWithVideos as $categoriesWithVideo) : ?>
+                <div class="video-block">
+                    <div class="video-block_head">
+                        <h3 class="video-block_title">
+                            <i class="<?= getCategoryIcon($categoriesWithVideo->category->id) ?>"></i><?= $categoriesWithVideo->category->title ?>
+                        </h3>
+                    </div>
+                    <div class="video-items">
+                        <?php foreach ($categoriesWithVideo->videos as $video) : ?>
+                            <div class="video-items_item">
+                                <?php get_template_part('template-parts/video', 'card', ['video' => $video, 'thumb_relay' => $thumbRelay, 'relay_domain' => $relayDomain]); ?>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
                 </div>
-                <div class="row">
-                    <?php foreach ($categoriesWithVideo->videos as $video): ?>
-                        <div class="col-lg-2">
-                            <?php get_template_part('template-parts/video', 'card', ['video' => $video, 'thumb_relay' => $thumbRelay, 'relay_domain' => $relayDomain]); ?>
-                        </div>
-                    <?php endforeach; ?>
-                </div>
-            </div>
             <?php endforeach; ?>
         <?php endif; ?>
 
@@ -56,5 +55,4 @@ $relayDomain = getRelayDomain();
         <?php get_footer(); ?>
     </div>
 </div>
-
-
+<?php get_template_part('template-parts/drawer', null, ['categories' => $categories]) ?>

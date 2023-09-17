@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @var VideoCategory[] $categories
  */
@@ -20,15 +21,14 @@ $navigation = [
 ?>
 
 <nav class="nav navbar-vertical bg-white">
-    <div class="list-group w-100">
-        <?php foreach ($navigation as $k => $item): ?>
+    <div class="list-group w-100 categories">
+        <?php foreach ($navigation as $k => $item) : ?>
             <a class="list-group-item list-group-item-action border-0" href="<?= $navigation[$k]['url'] ?>">
                 <i class="<?= getCategoryIcon($k) ?>"></i><?= $navigation[$k]['title'] ?>
             </a>
         <?php endforeach; ?>
-        <?php foreach ($categories as $category): ?>
-            <a class="list-group-item list-group-item-action border-0" href="<?= getCategoryUrl($category->slug) ?>"><i
-                        class="<?= getCategoryIcon($category->youtube_id) ?>"></i><?= $category->title ?></a>
+        <?php foreach ($categories as $category) : ?>
+            <a class="list-group-item list-group-item-action border-0" href="<?= getCategoryUrl($category->slug) ?>"><i class="<?= getCategoryIcon($category->youtube_id) ?>"></i><?= $category->title ?></a>
         <?php endforeach; ?>
     </div>
 </nav>

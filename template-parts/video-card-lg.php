@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @var VideoModel $video
  * @var $thumbRelay boolean
@@ -11,9 +12,9 @@ $relayDomain = $args['relay_domain'] ?? '';
 
 $videoUrl = getVideoUrl($video->id, $video->title);
 
-$imgSrc = 'https://i.ytimg.com/vi_webp/' . $video->id . '/mqdefault.webp';
+$imgSrc = 'https://img.youtube.com/vi/' . $video->id . '/mqdefault.jpg';
 if ($thumbRelay && strlen($relayDomain) > 0) {
-    $imgSrc = $relayDomain . '/img/' . strrev($video->id) . '/' . getSlug($video->title) . '.webp';
+    $imgSrc = $relayDomain . '/img/' . strrev($video->id) . '/' . getSlug($video->title) . '.jpg';
 }
 
 ?>
@@ -23,10 +24,10 @@ if ($thumbRelay && strlen($relayDomain) > 0) {
         <div class="col video-card_left">
             <a href="<?= $videoUrl ?>">
                 <span class="video-card_image">
-                    <img src="<?= $imgSrc ?>" alt="<?= $video->title ?>" class="w-100 shadow-sm"/>
-                    <?php if (strlen($video->duration)): ?>
+                    <img src="<?= $imgSrc ?>" alt="<?= $video->title ?>" class="w-100 shadow-sm" />
+                    <?php if (strlen($video->duration)) : ?>
                         <span class="video-card_duration">
-                          <?= $video->readabilityDuration ?>
+                            <?= $video->readabilityDuration ?>
                         </span>
                     <?php endif; ?>
                     <span class="video-card_channel">

@@ -1,0 +1,63 @@
+@import "./bootstrap/functions";
+@import "./bootstrap/variables";
+@import "./bootstrap/mixins";
+
+.full-video {
+  &_right {
+    width: 400px;
+    max-width: 400px;
+    @media (max-width: 1300px) {
+      width: 350px;
+      max-width: 350px;
+      min-width: 350px;
+    }
+    @include media-breakpoint-down("xl") {
+      width: 100%;
+      max-width: 100%;
+      min-width: 100%;
+      margin-top: 2rem;
+    }
+  }
+
+  &_left {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  &_title {
+    font-size: 1.875rem;
+    margin: 1rem 0;
+  }
+
+  &_description {
+    margin-top: 1rem;
+    overflow: hidden;
+  }
+
+  &_meta {
+    margin-bottom: 0.5rem;
+  }
+
+  &_channel {
+    a {
+      font-size: 1.25rem;
+      color: #000;
+      font-weight: bold;
+      text-decoration: none;
+      transition: color 200ms linear;
+
+      &:hover {
+        color: #0abf0a;
+      }
+    }
+
+    .fa {
+      color: #0abf0a;
+      margin-right: 0.375rem;
+    }
+  }
+
+  .player {
+    overflow: hidden;
+  }
+}

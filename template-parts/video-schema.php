@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @var VideoModel $video
  * @var $metaDescription string
@@ -11,15 +12,15 @@ $metaDescription = $args['metaDescription'] ?? '';
 $videoObjectDescription = $args['videoObjectDescription'] ?? '';
 $ogImgAlt = $args['ogImgAlt'] ?? '';
 
-if ($video !== null):
+if ($video !== null) :
     $thumbRelay = thumbRelay();
     $embedRelay = embedRelay();
     $relayDomain = getRelayDomain();
     $videoUrl = getVideoUrl($video->id, $video->title);
 
-    $thumbUrl = "https://i.ytimg.com/vi_webp/<?= $video->id ?>/mqdefault.webp";
+    $thumbUrl = "https://img.youtube.com/vi/<?= $video->id ?>/mqdefault.jpg";
     if ($thumbRelay && strlen($relayDomain) > 0) {
-        $thumbUrl = $relayDomain . "/img/" . strrev($video->id) . '/' . $videoUrl . '.webp';
+        $thumbUrl = $relayDomain . "/img/" . strrev($video->id) . '/' . $videoUrl . '.jpg';
     }
 
     $embedUrl = 'https://www.youtube.com/embed/' . $video->id;
@@ -32,17 +33,16 @@ if ($video !== null):
 
     <div itemscope itemtype="http://schema.org/VideoObject">
         <meta itemprop="name" content="<?= $video->title ?>">
-        <link itemprop="thumbnailUrl" href="<?= $thumbUrl ?>"/>
+        <link itemprop="thumbnailUrl" href="<?= $thumbUrl ?>" />
         <link itemprop="url" href="<?= $embedUrl ?>">
         <link itemprop="embedUrl" href="<?= $embedUrl ?>">
         <meta itemprop="description" content="<?= $videoObjectDescription ?>">
         <meta itemprop="duration" content="<?= $video->duration ?>">
         <meta itemprop="isFamilyFriendly" content="true">
-        <meta itemprop="uploadDate" content="<?= $video->publishedAt ?>"
-        <span itemprop="thumbnail" itemscope itemtype="http://schema.org/ImageObject">
-            <link itemprop="contentUrl" href="<?= $thumbUrl ?>">
-            <meta itemprop="width" content="250">
-            <meta itemprop="height" content="120">
+        <meta itemprop="uploadDate" content="<?= $video->publishedAt ?>" <span itemprop="thumbnail" itemscope itemtype="http://schema.org/ImageObject">
+        <link itemprop="contentUrl" href="<?= $thumbUrl ?>">
+        <meta itemprop="width" content="250">
+        <meta itemprop="height" content="120">
         </span>
     </div>
 
@@ -68,9 +68,9 @@ if ($video !== null):
     <meta property="og:video:secure_url" content="<?= $embedUrl ?>" />
     <meta property="og:video:type" content="text/html" />
     <meta property="og:video:type" content="text/html" />
-    <meta property="ya:ovs:is_official" content="true"/>
-    <meta property="ya:ovs:upload_date" content="<?= $video->publishedAt ?>"/>
-    <meta property="ya:ovs:adult" content="false"/>
+    <meta property="ya:ovs:is_official" content="true" />
+    <meta property="ya:ovs:upload_date" content="<?= $video->publishedAt ?>" />
+    <meta property="ya:ovs:adult" content="false" />
     <meta property="video:duration" content="<?= $video->durationSec ?>" />
     <meta property="ya:ovs:adult" content="false" />
     <meta property="ya:ovs:upload_date" content="<?= $video->publishedAt ?>" />

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @var array $queries
  * @var string $title
@@ -11,18 +12,21 @@ if (isset($args)) {
 
 ?>
 
-<?php if (count($queries) > 0): ?>
+<?php if (count($queries) > 0) : ?>
 
     <div class="queries-widget my-4">
-        <?php if ($title && strlen($title) > 0): ?>
+        <?php if ($title && strlen($title) > 0) : ?>
             <div class="queries-widget_head">
-                <h5 class="queries-widget_title"><?= $title ?></h5>
+                <h5 class="queries-widget_title">
+                    <i class="fa fa-search"></i>
+                    <?= $title ?>
+                </h5>
                 <a class="btn btn-outline-danger btn-sm" href="<?= getLastQueriesUrl() ?>">Все запросы</a>
             </div>
         <?php endif; ?>
 
         <ul class="queries-widget_list">
-            <?php foreach ($queries as $query): ?>
+            <?php foreach ($queries as $query) : ?>
                 <li class="queries-widget_list-item">
                     <a href="<?= getSearchUrl() ?>/<?= $query['keyword'] ?>"><?= $query['keyword'] ?></a>
                 </li>

@@ -1,0 +1,42 @@
+@import "./bootstrap/functions";
+@import "./bootstrap/variables";
+@import "./bootstrap/mixins";
+
+.search-form {
+  width: 50%;
+  @include media-breakpoint-down("xl") {
+    width: 100%;
+  }
+  @include media-breakpoint-down("lg") {
+    display: none;
+  }
+}
+
+.mobile-search-btn {
+  display: none;
+  margin-right: 1rem;
+  @include media-breakpoint-down("lg") {
+    display: inline-block;
+  }
+  @media (max-width: 359px) {
+    margin-right: 0.5rem;
+  }
+}
+
+.close-mobile-search {
+  display: none;
+  margin-left: 1rem;
+}
+
+.search-open {
+  .navbar-content_left,
+  .menu-btn,
+  .mobile-search-btn {
+    display: none;
+  }
+
+  .search-form,
+  .close-mobile-search {
+    display: block;
+  }
+}
